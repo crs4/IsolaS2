@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BancdArguin</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+</head>
+
+<body>
+
+<div class="grid1x3" name="BancdArguin" id="tiles" polygon="POLYGON((-16.76+21.54,-16.10+21.54,-16.07+19.01,-16.76+18.99,-16.76+21.54))" day="2020-02-16">
+  <div id="T28QCJ" class="grid-item" orbits="R080"></div>
+  <div id="T28QCH" class="grid-item" orbits="R080"></div>
+  <div id="T28QCG" class="grid-item" orbits="R080"></div>
+</div>
+<div id="day" day="" lang="fr en it"></div>
+<div class="grid7x7" id="calendar"></div>
+
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+</script>
+
+</body>
+</html>

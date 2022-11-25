@@ -1,0 +1,86 @@
+
+#calendar
+{
+  border: 2px solid white;
+}
+
+#calendar.grid7x7 {
+  display: grid;
+  grid-template-columns: repeat(7,40px);
+  grid-template-rows:    repeat(7,30px);
+  grid-gap: 2px 2px;                       /* no gaps */
+}
+
+#calendar .grid-item {
+  padding: 0px;
+  background-color: lightgrey;
+  font-family: Sans-Serif;
+}
+
+#day {
+    width: 290px;
+    font-family: Sans-Serif;
+ }
+
+#home, #prev_m, #next_m, #prev_y, #next_y, #today, #lang
+{ cursor: pointer; padding: 5px; }
+
+#home
+{ text-decoration: none; }
+
+#home:visited
+{ color: white; }
+
+#home:hover
+{ color: lightyellow; }
+
+
+#today { padding-left: 4px;  padding-right: 4px; }
+
+
+#day,
+#calendar .grid-item.dow {
+  background-color: darkgreen;
+  color: white;
+  text-align: center;
+  padding: 2px;
+  font-variant: small-caps;
+}
+
+#calendar .grid-item.dom {
+  text-align: right;
+  padding: 2px;
+}
+
+
+#calendar .grid-item.dom.prev,
+#calendar .grid-item.dom.next
+{
+  background-color: darkgrey;
+  color: #ededed;
+}
+
+#calendar .grid-item.dom.curr
+{
+  background-color: lightgrey;
+  color: black;
+}
+
+#calendar .grid-item.dom.today {
+  background-color: lightyellow;
+  color: black;
+}
+
+#calendar .grid-item.dom.shown {
+  background-color: darkgreen;
+  color: white !important;
+}
+
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+#home
+ {
+    display: none !important;
+ }
+}

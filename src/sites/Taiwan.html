@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Taiwan</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+</head>
+
+<body>
+
+<div class="grid2x4" name="Taiwan" id="tiles" polygon="POLYGON((119.97+23.27,119.96+22.90,120.74+21.77,121.09+21.98,121.24+22.64,122.04+24.71,122.06+25.06,121.56+25.39,120.96+25.16,119.97+23.27))
+" day="2021-05-08">
+  <div id="T51RTH" class="grid-item" orbits="R046"></div><div id="T51RUH" class="grid-item" orbits="R046"></div>
+  <div id="T51QTG" class="grid-item" orbits="R046"></div><div id="T51QUG" class="grid-item" orbits="R003 R046"></div>
+  <div id="T51QTF" class="grid-item" orbits="R046"></div><div id="T51QUF" class="grid-item" orbits="R003 R046"></div>
+  <div id="T51QTE" class="grid-item" orbits="R046"></div><div id="T51QUE" class="grid-item" orbits="R003 R046"></div>
+</div>
+<div id="day" day="2021-01-15" lang="zh-tw en it"></div>
+<div class="grid7x7" id="calendar"></div>
+<!--div id="content">loading...</div-->
+
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+// fill_tile_grid('2021-05-21');
+</script>
+
+</body>
+</html>

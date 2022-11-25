@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Crete</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+</head>
+<body>
+<div class="grid4x2" name="Crete" id="tiles" polygon="POLYGON((23.44+35.54,26.34+35.51,26.35+34.86,23.53+34.92,23.44+35.54))" day="2021-05-05">
+  <div id="T34SGE" class="grid-item" orbits="R050"></div>
+  <div id="T35SKV" class="grid-item" orbits="R007 R050"></div>
+  <div id="T35SLV" class="grid-item" orbits="R007 R050"></div>
+  <div id="T35SMV" class="grid-item" orbits="R007 R050"></div>
+  <div id="T34SGD" class="grid-item" orbits="R050"></div>
+  <div id="T35SKU" class="grid-item" orbits="R007 R050"></div>
+  <div id="T35SLU" class="grid-item" orbits="R007 R050"></div>
+  <div id="T35SMU" class="grid-item" orbits="R007 R050"></div>
+</div>
+<div id="day" day="" lang="el en it"></div>
+<div class="grid7x7" id="calendar"></div>
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+</script>
+
+</body>
+</html>
+
+
+
+
+

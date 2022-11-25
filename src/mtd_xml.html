@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<title>test</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+
+function do_fetch( mtd_url )
+{
+let headers = new Headers(); // Cache-Control:public; max-age=31536000
+//headers.append('Origin', document.location.origin ); // CORS 
+headers.append('Accept', 'application/xml');
+//  fetch( mtd_url ) //, { headers: {'Origin': document.location.origin } } )
+fetch( mtd_url, { headers: headers } )
+    .then(response => response.text())
+    .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
+    .then(data => {
+      var xml_el = data.querySelector('IMAGE_FILE'); // just get the first
+      if( xml_el ) 
+      {
+         console.log( 'got ', xml_el.textContent );
+      }
+      else 
+      {
+        console.log( 'xml_e1: null '  + xml_el );
+      }
+   })
+   .catch((error) => {
+      console.log('Fetch Error:', error);
+   });
+}
+
+var mtd_url =
+'https://storage.googleapis.com/gcp-public-data-sentinel-2/L2/tiles/32/T/ML/S2A_MSIL2A_20210612T101031_N0300_R022_T32TML_20210612T131842.SAFE/MTD_MSIL2A.xml';
+var cors_proxy = 'https://cors-anywhere.herokuapp.com/';
+//cors_proxy = 'https://cors-proxy.htmldriven.com/?url=';
+//cors_proxy =  'https://www.whateverorigin.org/get?url=';
+// mtd_url = encodeURIComponent(mtd_url) ;
+mtd_url = cors_proxy + mtd_url;
+
+
+do_fetch( mtd_url );
+</script>
+<body>
+Hello
+</body>
+</html>

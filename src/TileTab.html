@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>TileTab - Sentinel-2 by CRS4</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="css/TileTab.css"/>
+<script src="script/UTM2latlng.js"></script>
+<script src="script/loadAlternative.js"></script>
+</head>
+<body>
+<div class="row">
+
+  <div class="col">
+    <div class="heading"><span class="day"></span>: Tile <span class="tile"></span> L2A 10m bands</div>
+        <div><span>Download: </span><span class="links">
+        <a href="#">B02</a>  <!-- target="_blank" -->
+        <a href="#">B03</a> 
+        <a href="#">B04</a> 
+        <a href="#">TCI</a> 
+        <a href="#">B08</a></span>
+        <span class="warn tooltip">⚠<span class="tooltiptext">You may need to wait a day or so.</span></span>
+        <span class="fail tooltip">⚠<span class="tooltiptext">L2A Quality check failed.</span></span>
+        <span class="info tooltip">ℹ️<span class="tooltiptext">Downloads are in JP2 format and may be 100MB! </span></span>
+        </div>
+    <div class="img"></div>
+  </div>
+  <div class="col off">
+    <div class="heading"><span class="day"></span>: Tile <span class="tile"></span> L2A 10m bands</div>
+        <div><span>Download: </span><span class="links">
+        <a href="#">B02</a>  <!-- target="_blank" -->
+        <a href="#">B03</a> 
+        <a href="#">B04</a> 
+        <a href="#">TCI</a> 
+        <a href="#">B08</a></span>
+        <span class="warn tooltip">⚠<span class="tooltiptext">You may need to wait a day or so.</span></span>
+        <span class="fail tooltip">⚠<span class="tooltiptext">L2A Quality check failed.</span></span>
+        <span class="info tooltip">ℹ️<span class="tooltiptext">Downloads are in JP2 format and may be 100MB! </span></span>
+        </div>
+    <div class="img"></div>
+  </div>
+
+  
+</div>  <!-- row -->
+<input id="lng" size="6" type="text" placeholder="lon"><input id="lat" type="text" size="6" placeholder="lat"> <input id="zoom" size="2" type="text" placeholder="zoom"><span class="info tooltip">ℹ️<span class="tooltiptext">Click on image first.</span></span>
+<span id="maps">
+Open:<span id="EOB">EO Browser</span>
+<br><span id="GMaps">Google Maps</span> (date unknown)
+</span>
+</body>
+<script src="script/TileTab.js"></script>
+</html>

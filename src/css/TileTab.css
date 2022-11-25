@@ -1,0 +1,105 @@
+body { margin: 2px; padding: 0px ; background-color: lightgrey;}
+body { font-family: Arial, sans-serif; background-color: lightgrey;}
+Ximg { border: 1px lightgrey solid; }
+img { width: 343px; height: 343px;}
+.links a:visited {color:blue;}
+#note { color:darkgreen; font-size:small; font-style:italic; }
+.day, .tile
+{ font-weight: bold; }
+.links {padding:0; margin:0;}
+
+div.row > div.col 
+{ display:inline; }
+
+div.row > div.col.off
+{ display:none; } /* until proved dif */
+
+
+
+/* BEGIN tooltip styling */
+
+.tooltip {
+  margin-left: 10px;
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+  background-color:yellow;
+}
+
+.tooltip.fail  {
+   background-color: red;
+}
+
+
+.tooltip.info  {
+   background-color: lightblue;
+}
+
+#EOB.tooltip {
+   background-color: transparent;
+}
+
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 210px;
+  text-align: center;
+  background-color: white;
+  font-size:small; font-style:italic;
+  border-radius: 6px;
+  padding: 5px 0;
+  border: 1px solid black;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -5px; left: 105%;
+  top: 100%; left: -800%;
+}
+
+.tooltip:hover .tooltiptext {  visibility: visible; }
+
+/* END tooltip styling */
+
+/* BEGIN responsive web styling */
+
+* {   box-sizing: border-box; }
+.row { background-color: lightgrey; padding: 0px; margin: 0px }
+.row::after { content: ""; clear: both; display: block; }
+
+/* For desktop: */
+
+.col {width: 343px; margin: 3px;}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .col {  width: 100%; margin: 0px;  }
+}
+
+.col { float: left; padding: 0px; }
+/* END responsive web styling */
+
+
+.warn    { display: none;}
+.warn.on { display: inline;}
+.fail    { display: none;}
+.fail.on { display: inline;}
+.info    { display: inline;}
+.info.off{ display: none;}
+
+span.failed { color:red; font-style:italic; }
+
+div.img { cursor: crosshair; }
+
+#EOB, #GMaps
+{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#maps
+{ font-size: small !important;  }
+
+#zoom +span.info.tooltip {padding: 0px; margin: 0px;}
+img {color: red;}

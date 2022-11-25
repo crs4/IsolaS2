@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Zanzibar</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+</head>
+
+<body>
+<div class="grid2x3" name="Zanzibar" id="tiles" polygon="POLYGON((38.11+-4.53,38.11+-7.32,39.99+-7.32,39.989+-4.53,38.11+-4.53))" day="2021-05-08">
+  <div id="T37MDQ" class="grid-item" orbits="R049"></div><div id="T37MEQ" class="grid-item" orbits="R049"></div>
+  <div id="T37MDP" class="grid-item" orbits="R049"></div><div id="T37MEP" class="grid-item" orbits="R049"></div>
+  <div id="T37MDN" class="grid-item" orbits="R049"></div><div id="T37MEN" class="grid-item" orbits="R049"></div>
+</div>
+<div id="day" day="" lang="en it sw"></div>
+<div class="grid7x7" id="calendar"></div>
+<!--div id="content">loading...</div-->
+
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+// fill_tile_grid('2021-05-21');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IsolaS2 Web-App - by CRS4</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+</head>
+<style>
+* 
+{
+  font-family: sans-serif;
+}
+
+
+#reset { width: fit-content;}
+#reset {text-decoration: none; }
+#reset:link,
+#reset:visited,
+#reset:hover
+{color: black; }
+
+#reset:active
+{color: red; }
+
+@media only screen and (min-width: 768px) /*desktop*/
+{
+
+#intro,
+img#banner { width: 608px; }
+
+.grid3x6
+ {
+  display: grid;
+  grid-template-columns: repeat(3,200px);
+  grid-template-rows:    repeat(6);
+  grid-gap: 5px 5px;    
+}
+
+#reset       .tip {  visibility: hidden; }
+#reset:hover .tip {  visibility: visible; }
+}
+
+@media only screen and (max-width: 768px) /*mobile*/
+{
+#intro,
+img#banner { width: 100%; }
+
+.grid3x6
+ {
+  display: grid;
+  grid-template-columns: repeat(3,33%);
+  grid-template-rows:    repeat(6);
+  grid-gap: 5px 5px;    
+}
+
+#reset .tip {  visibility: visible; }
+
+}
+
+
+
+.grid3x6 > div {
+  background-color: #3A788F;
+  color: white;
+  padding: 3px;
+  cursor: pointer;
+}
+
+#intro
+{
+  padding-bottom:3px;
+  color:#569104;
+}
+
+#title
+{
+  font-weight: bold;
+  padding-bottom:3px;
+  color:#051A5C;
+}
+
+</style>
+
+
+<body>
+<div>
+  <img id="banner" src="Banner.png">
+</div>
+<div id="title"><i>IsolaS2</i> Web-App - from CRS4</div>
+<div id="intro">Explore the Sentinel-2 MSI data for your island or region</div>
+<div  class="grid3x6">
+    <div name="Sardinia">Sardinia</div>
+    <div name="Corsica">Corsica</div>
+    <div name="Sicily">Sicily</div>
+    <div name="Balearics">Balearics</div>
+    <div name="Cyprus">Cyprus</div>
+    <div name="Crete">Crete</div>
+    <div name="Friesland">Friesland</div>
+    <div name="Gotland">Gotland</div>
+    <div name="Hebrides">Hebrides</div>
+    <div name="Yorkshire">Yorkshire</div>
+    <div name="Serengeti">Serengeti</div>
+    <div name="BancdArguin">Banc d'Arguin</div>
+    <div name="Zanzibar">Zanzibar</div>
+    <div name="Taiwan">Taiwan</div>
+    <div name="Bali">Bali</div>
+    <div name="Darwin">Darwin</div>
+    <div name="LongIsland">Long Island</div>
+    <div name="Jamaica">Jamaica</div>
+</div>
+<a id="reset" href="#" onclick="localStorage.clear();">⚡<span class="tip">reset cache</span></a>
+
+<script>
+var els = document.querySelectorAll('div[name]');
+  for( var i=0; i<els.length; i++ )
+  {
+     els[i].onclick=function(ev) {
+         var el = ev.target;
+         var url = './sites/' + el.getAttribute('name') + '.html';
+         window.open( url, '_blank' ).focus();
+     };
+  }
+</script>
+
+</body>
+</html>
+

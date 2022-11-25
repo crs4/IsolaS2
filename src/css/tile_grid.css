@@ -1,0 +1,217 @@
+#content .item {
+	font-family: monospace,monospace;
+	font-size: 10pt;
+}
+
+#tiles
+{ background-color: white !important;}
+
+
+
+#tiles div.grid-item > img
+{ vertical-align: text-top !important; }
+
+#tiles div.grid-item > span 
+{ 
+  position:absolute !important; top:4px !important; right:2px !important; 
+  z-index: 10;
+}
+
+#tiles div.grid-item 
+{ position: relative !important; text-align: right !important; background-color: black !important;}
+
+#tiles div.grid-item.active:hover span
+{
+    border: 1px solid lightblue !important;
+}
+
+#tiles div.grid-item.active
+{
+    cursor: pointer;
+}
+
+#tiles.grid1x1
+ {
+  display: grid;
+  grid-template-columns: repeat(1,343px);  /* 1 cols 343 */
+  grid-template-rows:    repeat(1,343px);  /* 1 rows  */
+}
+
+#tiles.grid1x2
+ {
+  display: grid;
+  grid-template-columns: repeat(1,200px);  /* 1 cols 343 */
+  grid-template-rows:    repeat(2,200px);  /* 2 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+#tiles.grid1x3
+ {
+  display: grid;
+  grid-template-columns: repeat(1,147px);  /* 1 cols 343 */
+  grid-template-rows:    repeat(3,147px);  /* 3 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+#tiles.grid2x2
+ {
+  display: grid;
+  grid-template-columns: repeat(2,200px);  /* 2 cols 343 */
+  grid-template-rows:    repeat(2,200px);  /* 2 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+    
+#tiles.grid2x3
+ {
+  display: grid;
+  grid-template-columns: repeat(2,147px);  /* 2 cols 343 */
+  grid-template-rows:    repeat(3,147px);  /* 3 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+#tiles.grid2x4
+ {
+  display: grid;
+  grid-template-columns: repeat(2,100px);  /* 2 cols 343 */
+  grid-template-rows:    repeat(4,100px);  /* 4 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+#tiles.grid3x1
+ {
+  display: grid;
+  grid-template-columns: repeat(3,147px);  /* 3 cols 343 */
+  grid-template-rows:    repeat(1,147px);  /* 2 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+#tiles.grid3x2
+ {
+  display: grid;
+  grid-template-columns: repeat(3,147px);  /* 3 cols 343 */
+  grid-template-rows:    repeat(2,147px);  /* 2 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+#tiles.grid4x2
+ {
+  display: grid;
+  grid-template-columns: repeat(4,147px);  /* 4 cols 343 */
+  grid-template-rows:    repeat(2,147px);  /* 2 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+#tiles.grid4x3
+ {
+  display: grid;
+  grid-template-columns: repeat(4,147px);  /* 4 cols 343 */
+  grid-template-rows:    repeat(3,147px);  /* 3 rows  */
+  grid-gap: 2px 2px !important;                       /* no gaps */
+}
+
+/* these needs to be last */
+#tiles grid-item {                      /* missing the . */
+  padding: 0px;
+}
+
+#tiles img, #tiles canvas {
+  width: 100%; height: 100%;
+}
+
+/* https://stackoverflow.com/a/41920591/3507061 */
+/* toggle_ui() off/on when switching month or year*/
+#day.has-overlay {
+  opacity: 0.2;
+}
+
+#day:after {
+  content: "";
+  display: none;
+  position: fixed; /* could also be absolute */ 
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 10;
+  background: transparent;
+}
+
+#day.has-overlay:after {
+  display: block;
+}
+
+/*-------------------------------------------------*/
+
+#calendar .dom.due
+{
+    color: #A00000 !important;
+        font-weight: bold;
+}
+
+#calendar .dom[cloud]
+{
+    color: blue !important;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#calendar .dom.split::before
+{
+  text-decoration: underline black;
+  text-underline-offset: from-font !important;
+}
+
+#calendar .dom.split.shown::before
+{
+  text-decoration: underline white;
+  text-underline-offset: from-font !important;
+}
+
+#calendar .dom[cloud="⛅"]::before
+{
+  content: "⛅";
+  font-size: small;
+}
+
+#calendar .dom[cloud="☁"]::before
+{
+  content: "☁";
+  font-size: medium;
+  color: white;
+}
+
+#calendar .dom[cloud="☀"]::before
+{
+  content: "☀";
+  font-size: medium;
+  color: orange;
+}
+
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+#calendar .dom
+ {
+    font-size: small;
+ }
+}
+
+@media only screen  and (min-device-width: 768px) and (max-device-width: 1024px)  {
+     /* For ipad: */
+ #calendar .dom.split /* ::before */
+ {
+   text-decoration: underline !important;
+   color: black !important;
+   text-decoration-thickness: 0.1em !important;   
+   text-underline-offset: from-font !important;
+   text-decoration-style: wavy !important;
+ }
+
+ #calendar .dom.split.shown  /* ::before */
+ {
+   color: white !important; 
+ }
+
+}
+   
+img {color: lightgrey;}   

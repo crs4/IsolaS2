@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sardinia</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+
+</head>
+
+<body>
+
+<div class="grid2x3" name="Sardinia" id="tiles" polygon="POLYGON((8.02+39,10.12+39,10.12+41,8.02+41,8.02+39))" Xday="2021-05-08">
+  <div id="T32TML" class="grid-item" orbits="R022 R065"></div><div id="T32TNL" class="grid-item" orbits="R022 R065"></div>
+  <div id="T32TMK" class="grid-item" orbits="R022 R065"></div><div id="T32TNK" class="grid-item" orbits="R022 R065"></div>
+  <div id="T32SMJ" class="grid-item" orbits="R022 R065"></div><div id="T32SNJ" class="grid-item" orbits="R022"></div>
+</div>
+<div id="day" day="" lang="en it ca"></div>
+<div class="grid7x7" id="calendar"></div>
+<!--div id="content">loading...</div-->
+
+
+</body>
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+// fill_tile_grid('2021-05-21');
+</script>
+
+</html>

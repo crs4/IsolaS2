@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gotland</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+</head>
+
+<body>
+
+<div class="grid1x2" name="Gotland" id="tiles" polygon="POLYGON((18.80+57.36,18.80+57.78,19.00+57.78,19.00+57.36,18.80+57.36))" day="2022-06-19">
+  <div id="T34VCK" class="grid-item" orbits="R122"></div><div id="T34VCJ" class="grid-item" orbits="R122"></div>
+</div>
+<div id="day" day="" lang="sv en it"></div>
+<div class="grid7x7" id="calendar"></div>
+
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+</script>
+
+</body>
+</html>

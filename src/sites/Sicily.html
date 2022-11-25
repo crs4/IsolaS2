@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Sicily</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+</head>
+<body>
+<div class="grid4x3" name="Sicily" id="tiles" polygon="POLYGON((12.63+38.14,15.50+38.20,15.35+36.71,12.63+37.66,12.63+38.14))" day="2021-05-12">
+  <div id="T33STC" class="grid-item" orbits="R079 R122"></div>
+  <div id="T33SUC" class="grid-item" orbits="R079 R122"></div>
+  <div id="T33SVC" class="grid-item" orbits="R079"></div>
+  <div id="T33SWC" class="grid-item" orbits="R036 R079"></div>
+  <div id="T33STB" class="grid-item" orbits="R079 R122"></div>
+  <div id="T33SUB" class="grid-item" orbits="R079 R122"></div>
+  <div id="T33SVB" class="grid-item" orbits="R036 R079"></div>
+  <div id="T33SWB" class="grid-item" orbits="R036 R079"></div>
+  <div id="T33STA" class="grid-item" orbits="R079"></div>
+  <div id="T33SUA" class="grid-item" orbits="R079"></div>
+  <div id="T33SVA" class="grid-item" orbits="R036 R079"></div>
+  <div id="T33SWA" class="grid-item" orbits="R036 R079"></div>
+</div>
+<div id="day" day="" lang="it en"></div>
+<div class="grid7x7" id="calendar"></div>
+
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+</script>
+
+</body>
+</html>
+
+
+
+
+

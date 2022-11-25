@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Friesland</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<link rel="stylesheet" href="../css/tile_grid.css"/>
+<link rel="stylesheet" href="../css/calendar_grid.css"/>
+<script src="../script/calendar.js"></script>
+<script src="../script/load_composite.js"></script>
+<script src="../script/fill_tile_grid.js"></script>
+<script src="../script/loadAlternative.js"></script>
+
+</head>
+
+<body>
+
+
+<div class="grid1x2" name="Friesland" id="tiles" polygon="POLYGON((3.40+53.42,5.27+53.42,5.27+52.72,3.40+52.72,3.40+53.42))" day="2021-05-30">
+  <div id="T31UFV" class="grid-item" orbits="R051"></div>
+  <div id="T31UFU" class="grid-item" orbits="R051"></div>
+</div>
+<div id="day" day="" lang="en nl"></div>
+<div class="grid7x7" id="calendar"></div>
+<!--div id="content">loading...</div-->
+
+
+<script>
+create_calendar( fill_tile_grid ); // callback
+// fill_tile_grid('2021-05-21');
+</script>
+
+</body>
+</html>
