@@ -21,4 +21,5 @@ This web-app has become feasible due to several state-of-the-art innovations in 
 
 Conceived first for the island of Sardinia, our web-app is configurable to run at other geo-locations -  i.e. those representable as a few contiguous 100x100 km UTC tiles - e.g. Cyprus, Corsica the Hebrides, Gotland, Zanzibar, Yorkshire, etc as shown in the Gallery Section. Indeed once the user navigates to the page configured for their geo-location all they need do is point, click, observe and download MSI data, where ever they deem it appropriate.
 
-_IsolaS2_ is intended to be intuitive to use and its purpose easily discoverable.
+_IsolaS2_ is intended to be intuitive to use and its purpose easily discoverable  nevertheless a Mini User Guide is available here:
+[https://crs4.github.io/IsolaS2/src/UserGuide.html]

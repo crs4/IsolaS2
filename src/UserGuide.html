@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>IsolaS2 Mini User Guide - by CRS4</title>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="/favicon.png"/>
+<style>
+* 
+{
+  font-family: sans-serif;
+}
+h3 {padding: 0px; margin: 0px;}
+ul {list-style-type: circle;  }
+ul.b {list-style-type: square;  }
+
+a {text-decoration: none; }
+a:link,
+a:visited,
+a:hover
+{color: blue; font-weight: bold;}
+a:hover {text-decoration: underline; }
+
+a:active
+{color: red; }
+
+</style>
+
+
+</head>
+<body>
+<h3>IsolaS2 - Mini User Guide</h3>
+
+Select an island or region on the 
+<a href="./index.html">home page</a>
+to open the <i>IsolaS2</i> Web-app
+ - which
+will look something like that shown below on the left.
+<hr/>
+<img src="./UserGuide.png" width=630/>
+<hr/>
+<b>The calendar navigating panel</b> allows you to navigate to other dates:
+<ul>
+     <li>The current date is high-lit in yellow. 
+</li><li>The green highlight indicates the date of the acquisition being shown in the upper panel. 
+</li><li>Red numerals indicate future scheduled acquisition dates.
+</li><li>Blue numerals indicate dates of existing acquisitions – each bearing a symbol.
+</li><li>Each symbol (☁⛅☀️) indicates the likelihood of obscuring cloud cover on that date.
+</li><li>Clicking on a day marked by a symbol updates the upper panel to display its images.
+</li><li>The top two rows of the calendar panel indicate the month, year, and the days of the week.
+</li><li>Clicking on the <b>文</b> toggles the language of the month and day names – e.g.  to Italian.
+</li><li>Clicking on the  <b><</b> or <b>></b>  moves back or forward by a month.
+</li><li>Clicking on the <b><<</b> or <b>>></b> moves back or forward by a year.
+</li><li>Clicking on the circle symbol returns to today’s month.
+</li>
+</ul> 
+<b>The map tile panel</b> shows a map of contiguous UTC tiles where:
+<ul class="b">
+     <li>Each tile is initially filled in with it geographically mapped image from the latest 
+     <a target="_blank" href="https://sentinel.esa.int/web/sentinel/missions/sentinel-2">Sentinel-2</a> 
+     acquisition. 
+</li><li>Any tile marked with a green tick box ✅ in the upper panel has been officially published for land-use by ESA and becomes clickable.
+</li><li>Green ticks tend to appear six hours or so following the noon-time acquisition – at least for geo-locations within the EU. Yellow circles 🟡 appear earlier – and usefully show that an acquisition has occurred.
+</li><li>Clicking on a green-tick tile opens a new browser-tab: labelled the Tile Tab.
+</li>
+</ul>
+
+   
+<b>The Tile Tab</b> lets you effectively zoom-in further or download MSI data to disk.
+<ul>
+     <li>A click on the tile-image established a point of interest (white cross) and fills the geo-location bar with the corresponding longitude and latitude coordinates.
+</li><li>A click on the link marked
+        <a target="_blank" href="https://apps.sentinel-hub.com/eo-browser">EO Browser</a>
+        opens another tab containing that external service centred on the selected longitude latitude coordinate – with an adjustable zoom-factor: default 16. 
+</li><li>The links marked <b>B02</b>, <b>B03</b>, <b>B04</b>, <b>TCI</b> or <b>B08</b> when clicked initiate the download of the named 10m MSI band images for the given tile.
+</li><li>Downloads are from Google Storage's 
+    <a target="_blank" href="https://storage.googleapis.com/gcp-public-data-sentinel-2">Sentinel-2 repository</a>
+    and are typically rapid once they become available about a day following acquisition. 
+</li><li>You may then visualize and or analyse the downloaded MSI data locally – e.g. on a workstation using ESA's 
+    <a target="_blank" href="https://step.esa.int/main/download/snap-download/SNAP"> SNAP</a>
+    software, a GIS or by using
+    <a target="_blank" href="https://gdal.org/"> Gdal</a>
+    based scripts or even on a PC using
+    <a target="_blank" href="https://www.irfanview.com/plugins.htm"> IrfanView</a> using its JPEG2000 plugin.
+</li>
+</ul>
+<hr/>
+</body>
+</html>

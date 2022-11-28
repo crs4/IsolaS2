@@ -14,14 +14,14 @@
 }
 
 
-#reset { width: fit-content;}
-#reset {text-decoration: none; }
-#reset:link,
-#reset:visited,
-#reset:hover
+.info { width: fit-content;}
+.info {text-decoration: none; }
+.info:link,
+.info:visited,
+.info:hover
 {color: black; }
 
-#reset:active
+.info:active
 {color: red; }
 
 @media only screen and (min-width: 768px) /*desktop*/
@@ -38,8 +38,8 @@ img#banner { width: 608px; }
   grid-gap: 5px 5px;    
 }
 
-#reset       .tip {  visibility: hidden; }
-#reset:hover .tip {  visibility: visible; }
+.info       .tip {  visibility: hidden; }
+.info:hover .tip {  visibility: visible; }
 }
 
 @media only screen and (max-width: 768px) /*mobile*/
@@ -55,7 +55,7 @@ img#banner { width: 100%; }
   grid-gap: 5px 5px;    
 }
 
-#reset .tip {  visibility: visible; }
+.info .tip {  visibility: visible; }
 
 }
 
@@ -81,6 +81,7 @@ img#banner { width: 100%; }
   color:#051A5C;
 }
 
+
 </style>
 
 
@@ -89,7 +90,9 @@ img#banner { width: 100%; }
   <img id="banner" src="Banner.png">
 </div>
 <div id="title"><i>IsolaS2</i> Web-App - from CRS4</div>
-<div id="intro">Explore the Sentinel-2 MSI data for your island or region</div>
+<div id="intro">Explore the Sentinel-2 MSI data for your island or region.
+<a class="info" href="#" onclick="window.open( './UserGuide.html', '_blank' ).focus()">ℹ️<span class="tip">User guide</span></a>
+</div>
 <div  class="grid3x6">
     <div name="Sardinia">Sardinia</div>
     <div name="Corsica">Corsica</div>
@@ -110,7 +113,7 @@ img#banner { width: 100%; }
     <div name="LongIsland">Long Island</div>
     <div name="Jamaica">Jamaica</div>
 </div>
-<a id="reset" href="#" onclick="localStorage.clear();">⚡<span class="tip">reset cache</span></a>
+<a class="info" href="#" onclick="localStorage.clear();">⚡<span class="tip">reset cache</span></a>
 
 <script>
 var els = document.querySelectorAll('div[name]');
