@@ -4,6 +4,8 @@ The web-app _IsolaS2_ is intended as an entry point for quickly assessing the co
 
 **Live at** [https://crs4.github.io/IsolaS2/src/]
 
+**User guide** [https://crs4.github.io/IsolaS2/src/UserGuide.html]
+
 The motivation here is to lower the architectonic barriers experienced by unpractised users at the contemporary web-based Sentinel-2 data providers, and so boost the uptake of such data: In particular by explicitly removing:
 
 1. the need to register, login, respect timeouts, and endure throttled downloads - at ESA's SciHub site.
@@ -21,5 +23,4 @@ This web-app has become feasible due to several state-of-the-art innovations in 
 
 Conceived first for the island of Sardinia, our web-app is configurable to run at other geo-locations -  i.e. those representable as a few contiguous 100x100 km UTC tiles - e.g. Cyprus, Corsica the Hebrides, Gotland, Zanzibar, Yorkshire, etc as shown in the Gallery Section. Indeed once the user navigates to the page configured for their geo-location all they need do is point, click, observe and download MSI data, where ever they deem it appropriate.
 
-_IsolaS2_ is intended to be intuitive to use and its purpose easily discoverable  nevertheless a Mini User Guide is available here:
-[https://crs4.github.io/IsolaS2/src/UserGuide.html]
+_IsolaS2_ is intended to be intuitive to use and its purpose easily discoverable
