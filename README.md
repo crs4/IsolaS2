@@ -2,7 +2,7 @@
 
 The web-app _IsolaS2_ is intended as an entry point for quickly assessing the convenience of using Sentinel-2 MSI land-use data across a particular region or island.  MSI stands  for Multi-Spectral Imagery since there and 12 distinct spectral bands available - e.g. for monitoring vegetation across small-to-medium tracts of land.
 
-**Live at** [https://crs4.github.io/IsolaS2/src/]
+**Live at** <https://crs4.github.io/IsolaS2/src/>
 
 The motivation here is to lower the architectonic barriers experienced by unpractised users at the contemporary web-based Sentinel-2 data providers, and so boost the uptake of such data: In particular by explicitly removing:
 
