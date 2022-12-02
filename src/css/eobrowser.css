@@ -1,0 +1,22 @@
+#eob[geoloc]
+{
+  width: fit-content;
+  color: blue;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: sans-serif;
+  
+}
+
+#eob[geoloc]:hover
+{text-decoration: underline;}
+
+#eob[geoloc]:active
+{color: red; }
+
+#eob[geoloc]::before
+{
+    content: "🔗";
+    -moz-transform:rotate(-180deg);
+}
+/* 🔗  📌 📍  🌐  Ⓘ  🚩  💧 */

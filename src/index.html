@@ -27,7 +27,7 @@
 @media only screen and (min-width: 768px) /*desktop*/
 {
 
-#intro,
+div.intro,
 img#banner { width: 608px; }
 
 .grid3x6
@@ -38,13 +38,23 @@ img#banner { width: 608px; }
   grid-gap: 5px 5px;    
 }
 
+.grid1x7
+ {
+  display: grid;
+  grid-template-columns: repeat(1,608px);
+  grid-template-rows:    repeat(6);
+  grid-gap: 5px 5px;
+  margin-top: 5px;
+}
+
+.info       .tip {  color: blue; }
 .info       .tip {  visibility: hidden; }
 .info:hover .tip {  visibility: visible; }
 }
 
 @media only screen and (max-width: 768px) /*mobile*/
 {
-#intro,
+div.intro,
 img#banner { width: 100%; }
 
 .grid3x6
@@ -55,12 +65,21 @@ img#banner { width: 100%; }
   grid-gap: 5px 5px;    
 }
 
+.grid1x6
+ {
+  display: grid;
+  grid-template-columns: repeat(1,100%);
+  grid-template-rows:    repeat(6);
+  grid-gap: 5px 5px;    
+}
+
+
 .info .tip {  visibility: visible; }
 
 }
 
 
-
+.grid1x7 > div,
 .grid3x6 > div {
   background-color: #3A788F;
   color: white;
@@ -68,16 +87,22 @@ img#banner { width: 100%; }
   cursor: pointer;
 }
 
-#intro
+.grid1x7 > div {
+  background-color: #569104;
+}
+
+div.intro
 {
-  padding-bottom:3px;
+  margin-bottom:3px;
+  margin-top:3px;
   color:#569104;
+  Xfont-weight: bold;
 }
 
 #title
 {
   font-weight: bold;
-  padding-bottom:3px;
+  Xpadding-bottom:3px;
   color:#051A5C;
 }
 
@@ -90,10 +115,10 @@ img#banner { width: 100%; }
   <img id="banner" src="Banner.png">
 </div>
 <div id="title"><i>IsolaS2</i> Web-App - from CRS4</div>
-<div id="intro">Explore the Sentinel-2 MSI data for your island or region.
-<a class="info" href="#" onclick="window.open( './UserGuide.html', '_blank' ).focus()">ℹ️<span class="tip">User guide</span></a>
+<div class="intro">Explore the Sentinel-2 MSI data for your island or region.
+<a class="info" href="#" onclick="window.open( './UserGuide.html', '_blank' ).focus()">ℹ️<span class="tip"> User guide</span></a>
 </div>
-<div  class="grid3x6">
+<div  class="grid3x6" path="sites">
     <div name="Sardinia">Sardinia</div>
     <div name="Corsica">Corsica</div>
     <div name="Sicily">Sicily</div>
@@ -113,15 +138,38 @@ img#banner { width: 100%; }
     <div name="LongIsland">Long Island</div>
     <div name="Jamaica">Jamaica</div>
 </div>
+<div class="intro">Italian cultural heritage sites - IDEHA project.
+<a class="info" href="#" onclick="window.open( 'https://www.ideha.cnr.it/en/#', '_blank' ).focus()">ℹ️<span class="tip"> IDEHA site</span></a>
+</div>
+<div class="grid1x7" path="ideha">
+    <div name="real-sito-di-carditello">Ⓘ Real Sito of Carditello | Campania</div>
+    <div name="tonnara-di-favignana">Ⓘ Former Tuna Factory Florio of Favignana | Sicily</div>
+    <div name="acetaia-gambigliani-zoccoli">Ⓘ Acetaia Gambigliani Zoccoli | Emilia Romagna</div>
+    <div name="tenuta-di-collosorbo">Ⓘ Tenuta of Collosorbo | Tuscany</div>
+    <div name="anfiteatro-romano-di-venosa">Ⓘ Roman amphitheatre of Venosa | Basilicata</div>
+    <div name="anfiteatro-di-lecce">Ⓘ Roman amphitheatre of Lecce | Apulia</div>
+    <div name="pinacoteca-nazionale-di-cagliari">Ⓘ National Pinacotheca of Cagliari  Sardinia</div>
+</div>
 <a class="info" href="#" onclick="localStorage.clear();">⚡<span class="tip">reset cache</span></a>
 
+
 <script>
+function get_path(el, sites ) // sites is default
+{
+  const  node = el.parentNode;
+  if( !node ) return sites;
+  const path = node.getAttribute('path');
+  if( !path ) return sites;
+  return  path;
+}
+
 var els = document.querySelectorAll('div[name]');
   for( var i=0; i<els.length; i++ )
   {
      els[i].onclick=function(ev) {
-         var el = ev.target;
-         var url = './sites/' + el.getAttribute('name') + '.html';
+         const el = ev.target;
+         const path = get_path( el, 'sites' );
+         const url = './' + path + '/' + el.getAttribute('name') + '.html';
          window.open( url, '_blank' ).focus();
      };
   }
