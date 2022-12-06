@@ -55,17 +55,25 @@ will look something like that shown below on the left.
 </li><li>Clicking on the circle symbol returns to today’s month.
 </li>
 </ul> 
-<b>The map tile panel</b> shows a map of contiguous UTC tiles where:
-<ul class="b">
-     <li>Each tile is initially filled in with it geographically mapped image from the latest 
-     <a target="_blank" href="https://sentinel.esa.int/web/sentinel/missions/sentinel-2">Sentinel-2</a> 
-     acquisition. 
-</li><li>Any tile marked with a green tick box ✅ in the upper panel has been officially published for land-use by ESA and becomes clickable.
-</li><li>Green ticks tend to appear six hours or so following the noon-time acquisition – at least for geo-locations within the EU. Yellow circles 🟡 appear earlier – and usefully show that an acquisition has occurred.
-</li><li>Clicking on a green-tick tile opens a new browser-tab: labelled the Tile Tab.
+<b>The map tile panel</b> is a grid showing contiguous UTC tiles where each tile is initially filled in with it
+geographically mapped image from the latest Sentinel-2 acquisition. Tiles are marked as follows:
+<ul>  
+<li>
+🟡 a yellow circle (not shown) indicates a tile for which the “raw” level 1C product has
+been successfully acquired by ESA.
+</li><li>
+✅ A green tick box replaces the yellow circle – typically after six hours – once ESA has
+processed the acquisition and published it as level 2A product suitable for land-use analysis.
+Clicking on a green-tick tile opens a new browser-tab labelled the Tile Tab in Fig 1
+</li><li>
+A ‘break’ symbol replaces those above in the rare case of a split tile – explained later.
+📉 Its tile also becomes clickable when the level 2A product is available.
+</li><li>
+⚪ A grey circle indicates a tile left blank. This occurs when the tile either lies outside of
+the satellites swath, or outside of our specified region of interest and has not been requested,
+or when the data is not yet published.
 </li>
 </ul>
-
    
 <b>The Tile Tab</b> lets you effectively zoom-in further or download MSI data to disk.
 <ul>
