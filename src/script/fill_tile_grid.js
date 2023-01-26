@@ -52,7 +52,7 @@ function searchToObject() { // https://stackoverflow.com/a/7090123/3507061
 function get_creodias_url_proxy( polygon, day1, day2 )
 {
  var  site = 'https://creodias.sentineltwosardinia.workers.dev'; // CORS proxy
-//return( 'https://finder.creodias.eu/resto/api/collections/Sentinel2/search.json?maxRecords=400&startDate='
+//return( 'https://datahub.creodias.eu/resto/api/collections/Sentinel2/search.json?maxRecords=400&startDate='
   return( site + '/' + 'search.json?maxRecords=400&startDate='
           + day1 + 'T00:00:00Z&completionDate=' + day2 + 'T23:59:59Z&geometry=' + polygon
           + '&sortParam=startDate&sortOrder=descending&status=all&dataset=ESA-DATASET'
@@ -61,8 +61,8 @@ function get_creodias_url_proxy( polygon, day1, day2 )
 
 function get_creodias_url( polygon, day1, day2 )
 {
-//return( 'https://finder.creodias.eu/resto/api/collections/Sentinel2/search.json?maxRecords=400&productIdentifier=%2532%25&startDate='
-  return( 'https://finder.creodias.eu/resto/api/collections/Sentinel2/search.json?maxRecords=400&startDate='
+//return( 'https://datahub.creodias.eu/resto/api/collections/Sentinel2/search.json?maxRecords=400&productIdentifier=%2532%25&startDate='
+  return( 'https://datahub.creodias.eu/resto/api/collections/Sentinel2/search.json?maxRecords=400&startDate='
           + day1 + 'T00:00:00Z&completionDate=' + day2 + 'T23:59:59Z&geometry=' + polygon
           + '&sortParam=startDate&sortOrder=descending&status=all&dataset=ESA-DATASET'
   );
