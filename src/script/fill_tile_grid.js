@@ -47,6 +47,7 @@ function searchToObject() { // https://stackoverflow.com/a/7090123/3507061
   return obj;
 }
 
+
 // polygon = 'POLYGON((8.02+39,10.12+39,10.12+41,8.02+41,8.02+39))'; // Sardinia
 
 function get_creodias_url_proxy( polygon, day1, day2 )
@@ -67,6 +68,56 @@ function get_creodias_url( polygon, day1, day2 )
           + '&sortParam=startDate&sortOrder=descending&status=all&dataset=ESA-DATASET'
   );
 }
+
+
+function get_fetch_url( is_proxy, is_resto, polygon, day1, day2 )
+{
+ const DIRECT_SITE = 'https://datahub.creodias.eu';
+ const RESTO_PROXY = 'https://creodias.sentineltwosardinia.workers.dev';
+ const ODATA_PROXY = 'https://odata.sentineltwosardinia.workers.dev';
+ const RESTO_PATH = '/resto/api/collections/Sentinel2/';
+ const ODATA_PATH = '/odata/v1/';
+
+  let url = DIRECT_SITE;
+  if( is_proxy )
+  {
+      if( is_resto ) url = RESTO_PROXY; // n.b. the proxy already embeds the path
+      else           url = ODATA_PROXY;
+  }
+  else
+  {
+     if( is_resto ) url += RESTO_PATH;
+     else           url += ODATA_PATH;
+  }
+
+  if( is_resto )
+    url +=  'search.json?maxRecords=400&startDate='
+    + day1 + 'T00:00:00Z&completionDate=' + day2 + 'T23:59:59Z&geometry=' + polygon
+    + '&sortParam=startDate&sortOrder=descending&status=all&dataset=ESA-DATASET';
+  else // odata
+    url +=  'Products?$filter=Collection/Name%20eq%20%27SENTINEL-2%27%20and%20ContentDate/Start%20gt%20'
+    + day1
+    + 'T00:00:00.000Z%20and%20ContentDate/Start%20lt%20'
+    + day2
+    + 'T23:59:59.999Z%20and%20OData.CSC.Intersects(area=geography%27SRID=4326;'
+    +  polygon //.replace('+', '%20')
+    + '%27)&$expand=Attributes&$top=400' ;
+  
+  console.log( 'url:' + url );
+  return url;
+}
+
+/*
+https://datahub.creodias.eu/odata/v1/
+Products?$filter=Collection/Name%20eq%20%27SENTINEL-2%27%20and%20ContentDate/Start%20gt%20
+2023-02-27
+T00:00:00.000Z%20and%20ContentDate/Start%20lt%20
+2023-02-27
+T23:59:59.999Z%20and%20OData.CSC.Intersects(area=geography%27SRID=4326;
+POLYGON((8.02%2039,10.12%2039,10.12%2041,8.02%2041,8.02%2039))
+%27)&$expand=Attributes&$top=400
+*/
+
 
 function isDate(str) { // https://stackoverflow.com/a/51759570/3507061
   return( 'string' === typeof str && (dt = new Date(str)) && !isNaN(dt) && str === dt.toISOString().substr(0, 10) );
@@ -145,14 +196,16 @@ function fill_tile_grid( )
   
   document.title =  document.title.split('-')[0] + ' - ' + day1;
  
-  var url_direct = get_creodias_url( polygon, day1, day2 );
-  var url_proxy  = get_creodias_url_proxy( polygon, day1, day2 );
-  deactivate_ui();
+//var url_direct = get_creodias_url( polygon, day1, day2 );
+//var url_proxy  = get_creodias_url_proxy( polygon, day1, day2 );
+  var url_direct = get_fetch_url( false, false, polygon, day1, day2 );
+  var url_proxy  = get_fetch_url( true,  false, polygon, day1, day2 );
   do_fetch( url_direct, url_proxy );  // Hope direct comes back one day
 }
   
 function do_fetch( url, url_bak )
 {
+  deactivate_ui();
   fetch( url ) //, { headers: {'Origin': document.location.origin } } )
       .then((response) => {
           if(response.ok) {
@@ -160,9 +213,7 @@ function do_fetch( url, url_bak )
          }
          throw new Error("fetching creodias failed ****");
       })
-      .then((jsonResponse) => {
-        process_features(jsonResponse.features); // now do the business
-      })
+      .then((jsonResponse) => { process_features(jsonResponse) })
       .catch((error) => {
           if( url_bak )
               do_fetch( url_bak, null ); // on fail try proxy
@@ -190,65 +241,24 @@ function get_tileArr()
   return myArr;  
 }
 
-
-function process_features( features )
+function process_features( json )
 {
 var itemArr = [];
-    console.log('features.length', features.length);
-    if( features.length < 1 )
-//  console.log('features:', features);
-    {
-     console.log('No data found.');
-     activate_ui();
-     return;
-    }
-    
-    var tileArr = get_tileArr();
-//console.log('features[0].properties.title', features[0].properties.title);
-   //  0   1a 1b         2         3     4    5             6  
-   // S2B_MSIL1C_20210508T100549_N0300_R022_T32TNL_20210508T140010.SAFE
-    for( var i=0; i<features.length; i++ )
-    { 
-      var id   = features[i].properties.title.split('.')[0]; // remove the .SAFE
-      if( id.match(/_MSI_NOBS__/) ) continue; // next iteration
-      var myArr = id.split('_');
-//    var head  = myArr[0] + '_' + myArr[1].substr(0,3)  // S2B_MSI
-      var level = myArr[1].substr(3,3);  // L1C
-//    var utc   = myArr[2];  // 20210508T100549
-      var proc  = myArr[3];  // N0300 // 
-      if( proc == 'N9999' ) continue; // next iteration (experimental processor)
 
-      var orbit = myArr[4];  // R022
-      var tile  = myArr[5];  // T32TML
-      
-      // filter out extraneous tiles 
-      if( ! tileArr.includes( tile ) )  continue; // next iteration
-      var orbits = document.getElementById( tile ).getAttribute('orbits');
-      if( ! orbits.includes( orbit ) )  continue; // next iteration
-      
-      
-      var key   = level +'_' + myArr[6];  // L1C_20210508T140010
-      id =  myArr[0] + '_' + myArr[1] + '_' + myArr[2] + '_' + myArr[3] + '_' + myArr[4] + '_T_' + myArr[6]; // excise tile
-      var cloud= features[i].properties.cloudCover; // floating point percentage
-      
-      var indx = lookup_index( itemArr, key );
-      //console.log( indx, 'feature:', key, level, tile, id );
-      if( indx != -1 ) // found existing item
-      {
-         itemArr[indx].tiles.push( tile.substr(1) ); // e.g. 32TML
-         itemArr[indx].cloud += cloud; // keep the sum - to average later
-      }
-      else 
-      {  // create a new object in the item array
-        itemArr.push({
-          key: key,
-          cloud: cloud,
-          id: id,
-          level: level,
-          tiles: [ tile.substr(1) ] // array inside object
-        });
-      }
-    }
+  if( json.features && json.features.length ) {  // resto
+    console.log('features.length', json.features.length);
+    arr_to_items( true, itemArr, json.features );
+  }
+  else if( json.value && json.value.length) {    // odata
+    console.log('value.length', json.value.length);
+    arr_to_items( false, itemArr, json.value );
+  } else {                                     // no data
+    console.log('No data found.');
+    activate_ui();
+    return;
+  }
+
+    console.log('2 itemArr:', itemArr);
     itemArr.sort( compareItems ); 
     console.log( 'itemArr: ', itemArr );
     average_cloud( itemArr );
@@ -268,6 +278,63 @@ var itemArr = [];
    load_tiles( latest_day );
 }
 // use localStorage.clear();
+
+//console.log('features[0].properties.title', features[0].properties.title);
+   //  0   1a 1b         2         3     4    5             6  
+   // S2B_MSIL1C_20210508T100549_N0300_R022_T32TNL_20210508T140010.SAFE
+
+function arr_to_items( resto, itemArr, arr )
+{   
+    const tileArr = get_tileArr();
+    for( var i=0; i<arr.length; i++ )
+    { 
+      let id;
+      if( resto ) id = arr[i].properties.title;
+      else        id = arr[i].Name;  // odata
+      
+      id = id.split('.')[0]; // remove the .SAFE
+      if( id.match(/_MSI_NOBS__/) ) continue; // next iteration
+      var myArr = id.split('_');
+//    var head  = myArr[0] + '_' + myArr[1].substr(0,3)  // S2B_MSI
+      var level = myArr[1].substr(3,3);  // L1C
+//    var utc   = myArr[2];  // 20210508T100549
+      var proc  = myArr[3];  // N0300 // 
+      if( proc == 'N9999' ) continue; // next iteration (experimental processor)
+
+      var orbit = myArr[4];  // R022
+      var tile  = myArr[5];  // T32TML
+      
+      // filter out extraneous tiles 
+      if( ! tileArr.includes( tile ) )  continue; // next iteration
+      var orbits = document.getElementById( tile ).getAttribute('orbits');
+      if( ! orbits.includes( orbit ) )  continue; // next iteration
+      
+      
+      var key   = level +'_' + myArr[6];  // L1C_20210508T140010
+      id =  myArr[0] + '_' + myArr[1] + '_' + myArr[2] + '_' + myArr[3] + '_' + myArr[4] + '_T_' + myArr[6]; // excise tile
+      var cloud;
+      if( resto ) cloud = arr[i].properties.cloudCover; // floating point percentage
+      else        cloud = arr[i].Attributes[0].Value; // odata
+      
+      var indx = lookup_index( itemArr, key );
+      //console.log( indx, 'feature:', key, level, tile, id );
+      if( indx != -1 ) // found existing item
+      {
+         itemArr[indx].tiles.push( tile.substr(1) ); // e.g. 32TML
+         itemArr[indx].cloud += cloud; // keep the sum - to average later
+      }
+      else 
+      {  // create a new object in the item array
+        itemArr.push({
+          key: key,
+          cloud: cloud,
+          id: id,
+          level: level,
+          tiles: [ tile.substr(1) ] // array inside object
+        });
+      }
+    }
+}
 
 function compareItems( a, b ) { // itemArr.sort comparision function
  const aa = a.id.substr(7); // starting at level
@@ -555,11 +622,15 @@ function simple_img2( L2A, L1C, tile_el, label )
     var alt_str ="";
     if( false && L2Astem ) // false: L2A peps images never seem to be available
     {
+        alt_str +=  get_img_src_mundis( L2Astem, tile_id ); // feb 2023
+        if(alt_str) alt_str += ',';
         alt_str +=  get_img_src_peps( L2Astem, tile_id ); // ???? peps quicklook only for L1C
      // alt_str +=  get_img_src_creodias( L2Astem, tile_id ); // ???? peps quicklook only for L1C
     }
     if( L1Cstem )
     {
+        if(alt_str) alt_str += ',';
+        alt_str +=  get_img_src_mundis( L1Cstem, tile_id ); // feb 2023
         if(alt_str) alt_str += ',';
         alt_str += get_img_src_peps( L1Cstem, tile_id ) ;// + 'XX'; 
         if(alt_str) alt_str += ',';
@@ -588,7 +659,9 @@ function simple_img( str, tile_el, label )
 
     var img_src = get_img_src_creodias( stem, tile_id );
     
-    var alt_str =  get_img_src_peps( stem, tile_id ); 
+    var alt_str =  get_img_src_mundis( stem, tile_id ); // feb 2023
+                +  ','
+                get_img_src_peps( stem, tile_id ); 
                 +  ','
                 +  get_img_src_roda( stem, tile_id, 0 ); // poorman's L2C -> L1C fallback for 20181031
     
@@ -648,7 +721,7 @@ function linkify_tile2( el, stems, L1Cstems )
 function linkify_tile( el, stems )
 {
   el.onclick=function() {
-    var url = '../TileTab.html?tile=' + this.id + '&stems=' + stems;
+    var url = './TileTab.html?tile=' + this.id + '&stems=' + stems;
     window.open( url, '_blank' ).focus();
   };
   el.classList.add('active'); // must switch off later
@@ -728,5 +801,4 @@ const S2B_d = (date_diff(day, '2017-07-08'))%10;  // first available S2B for R02
   }
   return (0);
 }      
-
 
