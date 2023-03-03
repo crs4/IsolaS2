@@ -641,7 +641,6 @@ function simple_img2( L2A, L1C, tile_el, label )
    
     if( label != '🟡' ) // Yellow Circle
        linkify_tile( document.getElementById( tile_id ), L2Astem );
-    //linkify_tile2( document.getElementById( tile_id ), L2Astem, L1Cstem );
     label_tile( tile_el, label )
 
 }
@@ -706,22 +705,14 @@ function mk_composite2( L2AArr, L1CArr, tile_id, link_flag )
     load_composite( tile_id, src1, src1p, src2, src2p ); 
     if( link_flag ) 
       linkify_tile( document.getElementById( tile_id ), L2AArr.join('+') ); // stem1+stem2
-//  linkify_tile2( document.getElementById( tile_id ), L2AArr.join('+'), L1CArr.join('+') ); // stem1+stem2 twice
 }
 
-function linkify_tile2( el, stems, L1Cstems )
-{
-  el.onclick=function() {
-    var url = './downloader4.html?tile=' + this.id + '&stems=' + stems + '&L1Cstems=' + L1Cstems;
-    window.open( url, '_blank' ).focus();
-  };
-  el.classList.add('active'); // must switch off later
-}
+
 
 function linkify_tile( el, stems )
 {
   el.onclick=function() {
-    var url = './TileTab.html?tile=' + this.id + '&stems=' + stems;
+    var url = '../TileTab.html?tile=' + this.id + '&stems=' + stems;
     window.open( url, '_blank' ).focus();
   };
   el.classList.add('active'); // must switch off later
