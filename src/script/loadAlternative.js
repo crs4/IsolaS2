@@ -35,6 +35,13 @@ function loadAlternative(ev) // onerror event handler for img
 
 ///////////////////////////////////////////////
 
+function get_img_src_mundis( stem, tile_id )    // S2B_MSIL2A_20181031T101139_N0211_R022_T_20190116T215303
+{ 
+    return( 'https://obs.eu-de.otc.t-systems.com/metadata/quicklooks/Sentinel2'
+            + '/' + stem + '-ql.jpg'
+          ).replaceAll( '_T_',  '_' + tile_id + '_');
+}            
+
 function get_img_src_creodias( stem, tile_id )    // S2B_MSIL2A_20181031T101139_N0211_R022_T_20190116T215303
 { 
     var level = stem.substr(7,3); 
