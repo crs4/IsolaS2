@@ -712,7 +712,7 @@ function mk_composite2( L2AArr, L1CArr, tile_id, link_flag )
 function linkify_tile2( el, stems, L1Cstems )
 {
   el.onclick=function() {
-    var url = '../downloader4.html?tile=' + this.id + '&stems=' + stems + '&L1Cstems=' + L1Cstems;
+    var url = './downloader4.html?tile=' + this.id + '&stems=' + stems + '&L1Cstems=' + L1Cstems;
     window.open( url, '_blank' ).focus();
   };
   el.classList.add('active'); // must switch off later
@@ -721,7 +721,7 @@ function linkify_tile2( el, stems, L1Cstems )
 function linkify_tile( el, stems )
 {
   el.onclick=function() {
-    var url = '../TileTab.html?tile=' + this.id + '&stems=' + stems;
+    var url = './TileTab.html?tile=' + this.id + '&stems=' + stems;
     window.open( url, '_blank' ).focus();
   };
   el.classList.add('active'); // must switch off later
