@@ -312,9 +312,21 @@ function arr_to_items( resto, itemArr, arr )
       
       var key   = level +'_' + myArr[6];  // L1C_20210508T140010
       id =  myArr[0] + '_' + myArr[1] + '_' + myArr[2] + '_' + myArr[3] + '_' + myArr[4] + '_T_' + myArr[6]; // excise tile
-      var cloud;
+      var cloud =0;
       if( resto ) cloud = arr[i].properties.cloudCover; // floating point percentage
-      else        cloud = arr[i].Attributes[0].Value; // odata
+      else
+      {   const atts = arr[i].Attributes;              // odata
+          for( var j=0; j<atts.length ; j++ )
+          {
+             const att = atts[j];
+             if( att.Name && att.Name == "cloudCover"  && att.Value )
+             {
+                 cloud = att.Value;
+                 break;
+             }
+          }
+      }
+
       
       var indx = lookup_index( itemArr, key );
       //console.log( indx, 'feature:', key, level, tile, id );
