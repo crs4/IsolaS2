@@ -632,7 +632,7 @@ function simple_img2( L2A, L1C, tile_el, label )
     var img_src  = get_img_src_creodias( L2Astem, tile_id ) ;// + 'XX'; 
  // var img_src  = get_img_src_peps( L2Astem, tile_id, 0 );
     var alt_str ="";
-    if( false && L2Astem ) // false: L2A peps images never seem to be available
+    if( L2Astem ) // june 2023
     {
         alt_str +=  get_img_src_mundis( L2Astem, tile_id ); // feb 2023
         if(alt_str) alt_str += ',';
