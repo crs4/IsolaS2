@@ -57,7 +57,7 @@ for( var i=0,count=0; i< stemArr.length; i++ )
   var tile_el = el.querySelector('div.img');
   tile_el.setAttribute( 'day', day );
   
-  var img_src = get_img_src_mundis[i], tile_id );
+  var img_src = get_img_src_mundis( stemArr[i], tile_id );
   var alt_str =
               get_img_src_peps( stemArr[i], tile_id ) 
               +','
