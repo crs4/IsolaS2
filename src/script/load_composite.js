@@ -9,7 +9,7 @@
 // combine image data1 and data2 into data1
 // write data1 to canvas1
 
-function load_composite( id_str, src1, src1_bak, src2, src2_bak )
+function load_composite( id_str, src1, alt_str1, src2, alt_str2 )
 {
   var myDiv = document.getElementById( id_str );
   myDiv.style.position = 'relative';
@@ -17,14 +17,16 @@ function load_composite( id_str, src1, src1_bak, src2, src2_bak )
   var img1 = new Image();
   img1.setAttribute('parent_id', id_str );
   img1.crossOrigin = 'anonymous';
-  img1.onerror= function(ev) { ev.target.onerror=null; if(src1_bak) ev.target.src = src1_bak; }
+  img1.setAttribute('data-alternative', alt_str1 );
+  img1.onerror = loadAlternative;
   img1.onload = function( ) {
      if( img1.width + img1.height == 0 ) { img1.onerror(); return; }
      img_to_canvas( img1 ); 
      var img2 = new Image();
      img2.setAttribute('parent_id', id_str );
      img2.crossOrigin = 'anonymous';
-     img2.onerror= function(ev) { ev.target.onerror=null; if(src2_bak) ev.target.src = src2_bak; }
+     img2.setAttribute('data-alternative', alt_str2 );
+     img2.onerror = loadAlternative;
      img2.onload = function( ) { 
          if( img2.width + img2.height == 0 ) { img2.onerror(); return; }
          img_to_canvas(img2)
@@ -528,4 +530,3 @@ function set_yellow(data, i)  { data[i++] = 255; data[i++] = 255;  data[i  ] =  
 function set_red(data, i)     { data[i++] = 255; data[i++] =   0;  data[i  ] =   0; }
 function set_magenta(data, i) { data[i++] = 255; data[i++] =   0;  data[i  ] = 255; }
 function set_blue(data, i)    { data[i++] =   0; data[i++] =   0;  data[i  ] = 255; }
-
