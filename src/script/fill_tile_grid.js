@@ -326,7 +326,6 @@ function arr_to_items( resto, itemArr, arr )
              }
           }
       }
-
       
       var indx = lookup_index( itemArr, key );
       //console.log( indx, 'feature:', key, level, tile, id );
@@ -629,13 +628,11 @@ function simple_img2( L2A, L1C, tile_el, label )
     var L2Astem = L2A.split(' ')[0];
     var L1Cstem = L1C.split(' ')[0];
     
-    var img_src  = get_img_src_creodias( L2Astem, tile_id ) ;// + 'XX'; 
- // var img_src  = get_img_src_peps( L2Astem, tile_id, 0 );
+    var img_src  = get_img_src_mundis( L2Astem, tile_id ) ;// + 'XX'; 
+ // var img_src  = get_img_src_peps( L2Astem, tile_id );
     var alt_str ="";
-    if( L2Astem ) // june 2023
+    if( L2Astem ) // false: L2A peps images never seem to be available
     {
-        alt_str +=  get_img_src_mundis( L2Astem, tile_id ); // feb 2023
-        if(alt_str) alt_str += ',';
         alt_str +=  get_img_src_peps( L2Astem, tile_id ); // ???? peps quicklook only for L1C
      // alt_str +=  get_img_src_creodias( L2Astem, tile_id ); // ???? peps quicklook only for L1C
     }
@@ -646,15 +643,15 @@ function simple_img2( L2A, L1C, tile_el, label )
         if(alt_str) alt_str += ',';
         alt_str += get_img_src_peps( L1Cstem, tile_id ) ;// + 'XX'; 
         if(alt_str) alt_str += ',';
-        alt_str += get_img_src_roda( L2Astem, tile_id, 0 );
+        alt_str += get_img_src_roda( L1Cstem, tile_id, 0 ); // fix 10/05/2023
     }
 
     insert_image( tile_el, img_src, alt_str );
    
     if( label != '🟡' ) // Yellow Circle
        linkify_tile( document.getElementById( tile_id ), L2Astem );
+    //linkify_tile2( document.getElementById( tile_id ), L2Astem, L1Cstem );
     label_tile( tile_el, label )
-
 }
 
 
@@ -668,11 +665,9 @@ function simple_img( str, tile_el, label )
     var level = stem.substr(7,3); // L1C or L2A
     //console.log('simple_img: ', str, tile_el, label, level, stem );
 
-    var img_src = get_img_src_creodias( stem, tile_id );
+    var img_src = get_img_src_mundis( stem, tile_id );
     
-    var alt_str =  get_img_src_mundis( stem, tile_id ); // feb 2023
-                +  ','
-                get_img_src_peps( stem, tile_id ); 
+    var alt_str =  get_img_src_peps( stem, tile_id ); 
                 +  ','
                 +  get_img_src_roda( stem, tile_id, 0 ); // poorman's L2C -> L1C fallback for 20181031
     
@@ -690,11 +685,18 @@ function mk_composite1( L1CArr, tile_id )
     {
       for( var i=0; i<L1CArr.length; i++)
          L1CArr[i] = L1CArr[i].split(' ')[0]; // just the stems
-      src1 = get_img_src_peps( L1CArr[0], tile_id );
-      src2 = get_img_src_peps( L1CArr[1], tile_id );
-      src1p= get_img_src_roda( L1CArr[0], tile_id, 0 );
-      src2p= get_img_src_roda( L1CArr[1], tile_id, 0 );
-      load_composite( tile_id, src1, src1p, src2, src2p );
+      src1 = get_img_src_mundis( L1CArr[0], tile_id );
+      src2 = get_img_src_mundis( L1CArr[1], tile_id );
+      
+      alt_str1 += get_img_src_peps( L1CArr[0], tile_id )
+               + ','
+               + get_img_src_roda( L1CArr[0], tile_id,0 );
+      
+      alt_str2 += get_img_src_peps( L1CArr[1], tile_id )
+               + ','
+               + get_img_src_roda( L1CArr[1], tile_id,0 );
+
+      load_composite( tile_id, src1, alt_str1, src2, alt_str2 );
     }
 }
 
@@ -702,29 +704,42 @@ function mk_composite1( L1CArr, tile_id )
 function mk_composite2( L2AArr, L1CArr, tile_id, link_flag )
 {             
     for( var i=0; i<L2AArr.length; i++) L2AArr[i] = L2AArr[i].split(' ')[0]; // just the stems
-    var src1 =  get_img_src_creodias( L2AArr[0], tile_id );
-    var src2 =  get_img_src_creodias( L2AArr[1], tile_id );
-    var src1p='',src2p='';
-    //src1p = get_img_src_peps( L2AArr[0], tile_id );
-    //src2p = get_img_src_peps( L2AArr[1], tile_id );
+    var src1 =  get_img_src_mundis( L2AArr[0], tile_id );
+    var src2 =  get_img_src_mundis( L2AArr[1], tile_id );
+    var alt_str1='',alt_str2='';
+    //alt_str1 = get_img_src_peps( L2AArr[0], tile_id );
+    //alt_str2 = get_img_src_peps( L2AArr[1], tile_id );
     if( 1 < L1CArr.length ) 
     {
       for( var i=0; i<L1CArr.length; i++) L1CArr[i] = L1CArr[i].split(' ')[0]; // just the stems
-      src1p = get_img_src_peps( L1CArr[0], tile_id );
-      src2p = get_img_src_peps( L1CArr[1], tile_id );
+      
+      alt_str1 += get_img_src_peps( L1CArr[0], tile_id )
+               + ','
+               + get_img_src_roda( L1CArr[0], tile_id,0 );
+               
+      alt_str2 += get_img_src_peps( L1CArr[1], tile_id )
+               + ','
+               + get_img_src_roda( L1CArr[1], tile_id,0 );
     }
-
-    load_composite( tile_id, src1, src1p, src2, src2p ); 
+    load_composite( tile_id, src1, alt_str1, src2, alt_str2 ); 
     if( link_flag ) 
       linkify_tile( document.getElementById( tile_id ), L2AArr.join('+') ); // stem1+stem2
+//  linkify_tile2( document.getElementById( tile_id ), L2AArr.join('+'), L1CArr.join('+') ); // stem1+stem2 twice
 }
 
-
+function linkify_tile2( el, stems, L1Cstems )
+{
+  el.onclick=function() {
+    var url = './downloader4.html?tile=' + this.id + '&stems=' + stems + '&L1Cstems=' + L1Cstems;
+    window.open( url, '_blank' ).focus();
+  };
+  el.classList.add('active'); // must switch off later
+}
 
 function linkify_tile( el, stems )
 {
   el.onclick=function() {
-    var url = '../TileTab.html?tile=' + this.id + '&stems=' + stems;
+    var url = './TileTab.html?tile=' + this.id + '&stems=' + stems;
     window.open( url, '_blank' ).focus();
   };
   el.classList.add('active'); // must switch off later
