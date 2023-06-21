@@ -734,7 +734,7 @@ function linkify_tile2( el, stems, L1Cstems )
 function linkify_tile( el, stems )
 {
   el.onclick=function() {
-    var url = './TileTab.html?tile=' + this.id + '&stems=' + stems;
+    var url = '../TileTab.html?tile=' + this.id + '&stems=' + stems;
     window.open( url, '_blank' ).focus();
   };
   el.classList.add('active'); // must switch off later
