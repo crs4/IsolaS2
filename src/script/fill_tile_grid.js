@@ -380,20 +380,15 @@ function average_cloud( itemArr )
 
 function find_duplicate( itemArr ) // S2B_MSIL2A_20181031T101139_N0211_R022_T
 {                                  // S2B_MSIL2A_20181031T101139_N0209_R022_T
-const len_max = document.querySelectorAll('#tiles > div').length;
    for( var i=0; i<itemArr.length; i++ ) // O(n^2) 
    {
      var obj_i  = itemArr[i];
      var stem_i = obj_i.id.substr(0,27); // S2B_MSIL2A_20181031T101139_
      var utc_i  = obj_i.key.substr(4); 
-//   if( stem_i.match(/_NOBS__/) )
-//   {
-//       console.log('find_duplicate: NOBS being eliminated: ', obj_i.id )
-//       return( i );  // eliminate any NOBS early experimental products
-//   }
-     
-     var proc_i = obj_i.id.substr(27,5); // N0211
      var len_i  = obj_i.tiles.length;    // number of tiles
+     var proc_i = obj_i.id.substr(27,5); // N0211
+     var orbit_i= obj_i.id.substr(33,4); // R022
+     var len_max = document.querySelectorAll( '#tiles > div[orbits*="' + orbit_i + '"]' ).length;
 
       for( var j=i+1; j<itemArr.length; j++ )
       {
