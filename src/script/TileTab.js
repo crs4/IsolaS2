@@ -43,8 +43,11 @@ var stemArr = params.stems.split('+');
 
 // Assign stems as col ids
 var els = document.querySelectorAll('div.row > div.col');
+var max = stemArr.length;
+if( 2 < stemArr.length ) max = 2;
+console.log('stemArr.length: ' + stemArr.length + ' ' + max);
 
-for( var i=0,count=0; i< stemArr.length; i++ )
+for( var i=0,count=0; i< max; i++ )
 {
  var el = els[i];
   el.classList.remove('off'); // display this column / panel
@@ -57,7 +60,7 @@ for( var i=0,count=0; i< stemArr.length; i++ )
   var tile_el = el.querySelector('div.img');
   tile_el.setAttribute( 'day', day );
   
-  var img_src = get_img_src_mundis( stemArr[i], tile_id );
+  var img_src = get_img_src_dataspace( stemArr[i], tile_id );
   var alt_str =
               get_img_src_peps( stemArr[i], tile_id ) 
               +','
@@ -113,12 +116,12 @@ for( var i=0; i<els.length; i++ )
 {
   var product = els[i].id;
     console.log('MTD '+ i + ': ' + product );
-  mtd_url = get_creodias_mtd_url( product );
+  mtd_url_bak = get_creodias_mtd_url( product );
 //mtd_url = get_google_mtd_url( product ); 
   // mtd_url += 'XX';
-  mtd_url_bak = get_google_proxy_mtd_url( product ); // via CORS reverse proxy to avoid failure
+  mtd_url = get_google_proxy_mtd_url( product ); // via CORS reverse proxy to avoid failure
   console.log('mtd_url', mtd_url );
-  do_fetch_mtd( mtd_url, mtd_url_bak ); // callback = update_links
+  do_fetch_mtd( mtd_url ); //, mtd_url_bak ); // callback = update_links
 }
 
 
@@ -165,47 +168,67 @@ function activate_img( xml_data, product )
     el.onclick =  getImageCoords;
 }
 
+
 /////////////////////////////////////////////////////////////////
-function do_fetch_mtd( url, url_bak )
+function do_fetch_mtd( url) //, url_bak )
 {
+const exception = new Error(); 
+exception.name = "CustomError";
+exception.response = { status: 0, data: {detail: "my custom error"} };
+
   fetch( url ) //, { headers: {'Origin': document.location.origin } } )
     .then((response) => {
           if(response.ok) {
              return response.text();
          }
-         throw new Error("fetching creodias failed ****"); // Error doesn't exist
+         exception.response.status = response.status;
+         throw exception
     })
     .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
     .then(xml_data => {
          update_links( xml_data ); // call back
      })
-     .catch((error) => {
-          if( url_bak )
-              do_fetch_mtd( url_bak, null ); // on fail try proxy
+     .catch((err) => {
+          // if( url_bak ) do_fetch_mtd( url_bak, null ); // on fail try proxy
+          // else
+          if( err.response && err.response.status == 429 ) // Too many requests so wait and retry
+          {
+            console.log('429 retrying in 1s: ' + url );
+            setTimeout(() => { do_fetch_mtd( url ) },1000);
+          }
           else
             myError('mtd failed even via proxy');            // failed even via proxy
      });
-
 }
 
-function do_fetch_mtd_tl( url, url_bak, product )
+function do_fetch_mtd_tl( url, product )
 {
+const exception = new Error(); 
+exception.name = "CustomError";
+exception.response = { status: 0, data: {detail: "my custom error"} };
+
   fetch( url )
     .then((response) => {
           if(response.ok) {
              return response.text();
          }
-         throw new Error("fetching creodias failed ****"); // Error doesn't exist
+         exception.response.status = response.status;
+         throw exception
     })
     .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
     .then(xml_data => {
          activate_img( xml_data, product ); // call back
      })
-     .catch((error) => {
-          if( url_bak )
-              do_fetch_mtd_tl( url_bak, null, product ); // on fail try proxy
+     .catch((err) => {
+          // if( url_bak ) do_fetch_mtd_tl( url_bak, null, product ); // on fail try proxy
+          // else
+          if( err.response && err.response.status == 429 ) // Too many requests so wait and retry
+          {
+            console.log('429 retrying in 1s: ' + url );
+            setTimeout(() => { do_fetch_mtd_tl( url, product ) },1000);
+          }
           else
-            myError('mtd_tl failed even via proxy');            // failed even via proxy
+            myError('mtd failed even via proxy');            // failed even via proxy
      });
 
 }
@@ -308,12 +331,14 @@ function update_links( xml_data )
     els[i].target = '_blank';
   }
   
-  var mtd_tl_url = get_creodias_mtd_tl_url( product, image_file );
+  var mtd_tl_url_bak = get_creodias_mtd_tl_url( product, image_file );
   // mtd_tl_url += 'XX';
-  var mtd_tl_url_bak = get_google_proxy_mtd_tl_url( product, image_file );
+  var mtd_tl_url = get_google_proxy_mtd_tl_url( product, image_file );
   console.log('mtd_tl_url: ', mtd_tl_url );
-  do_fetch_mtd_tl( mtd_tl_url, mtd_tl_url_bak, product ); // callback = activate_img
+  do_fetch_mtd_tl( mtd_tl_url, product ); // callback = activate_img
+
 }
+
 
 ///////////////////////////////////////////////////////////////
 
