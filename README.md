@@ -8,13 +8,13 @@ The web-app _IsolaS2_ is intended as an entry point for quickly assessing the co
 
 The motivation here is to lower the architectonic barriers experienced by unpractised users at the contemporary web-based Sentinel-2 data providers, and so boost the uptake of such data: In particular by explicitly removing:
 
-1. the need to register, login, respect timeouts, and endure throttled downloads - at ESA's SciHub site.
-2. the need to pay service subscription to download data - at CreoDIAS and EO Browser
+1. the need to register, login, respect timeouts, and endure throttled downloads - at ESA's Copernicus site.
+2. the need to pay service subscription to download data - at CreoDIAS and EO Browser etc
 3. the need to adopt a cloud computing paradigm in order to easily access or download the data from the GoogleStorage Sentinel-2 repository.
 
 This web-app has become feasible due to several state-of-the-art innovations in the delivery of images and data over the web - as will be detailed later - these include: 
 
-1. the advent of the free CreoDIAS Finder REST service to find available Sentinel data,
+1. the advent of the free dataspace.copernicus.eu oData service to find available Sentinel data,
 2. the ability to source thumbnail images from diverse online resources and swap them in when one or other goes down. 
 3. the ability of browsers to mix composite images from the pixels in pairs of thumbnails.
 4. the ability to deep-link to given date/geo-location combinations at the EO Browser site.
