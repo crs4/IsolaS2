@@ -13,16 +13,16 @@ function set_stored_month()
             + '-' +  yyyy_mm ;
     try 
     {
-      localStorage.setItem( key , document.getElementById('calendar').innerHTML ); 
+      sessionStorage.setItem( key , document.getElementById('calendar').innerHTML ); 
     } 
-    catch (e)     // If localstorage is full we need to clear some for next time
+    catch (e)     // If sessionStorage is full we need to clear some for next time
     {  
-      console.log('localStorage is full - removing some items: ' + e );
+      console.log('sessionStorage is full - removing some items: ' + e );
       var keyArr=[];
-      for( var i=0; i<localStorage.length/2; i++ ) // remove first half of items
-         keyArr.push(localStorage.key(i));
+      for( var i=0; i<sessionStorage.length/2; i++ ) // remove first half of items
+         keyArr.push(sessionStorage.key(i));
       for( var i=0; i<keyArr.length; i++ ) 
-        localStorage.removeItem( keyArr(i) );
+        sessionStorage.removeItem( keyArr(i) );
     }
 }
 
@@ -32,7 +32,7 @@ function get_stored_month( yyyy_mm )
 
  var key = document.getElementById('tiles').getAttribute('name') // Sardinia
          + '-' +  yyyy_mm ;
- return( localStorage.getItem( key , key ) );  
+ return( sessionStorage.getItem( key , key ) );  
 }
 
 
@@ -239,7 +239,7 @@ var itemArr = [];
    var latest_day =  get_latest_day(); // '2018-10-31' ;//'2021-05-21';
    load_tiles( latest_day );
 }
-// use localStorage.clear();
+// use sessionStorage.clear();
 
 //console.log('features[0].properties.title', features[0].properties.title);
    //  0   1a 1b         2         3     4    5             6  
