@@ -55,7 +55,7 @@ for( var i=0,count=0; i< max; i++ )
   el.getElementsByClassName('day' )[0].textContent = day;
   el.getElementsByClassName('tile')[0].textContent = tile_id.substr(1);
 
-  document.getElementById('EOB').setAttribute( 'day', day );
+  document.getElementById('CopB').setAttribute( 'day', day );
 
   var tile_el = el.querySelector('div.img');
   tile_el.setAttribute( 'day', day );
@@ -149,7 +149,7 @@ function getImageCoords( ev )
   document.getElementById('lat').value = myArr[0].toFixed(2);
   document.getElementById('lng').value = myArr[1].toFixed(2);
   document.getElementById('zoom').value = 16;
-  document.getElementById('EOB').onclick = eobrowser;
+  document.getElementById('CopB').onclick = Cop_browser;
   document.getElementById('GMaps').onclick = GMaps;
 }
 
@@ -250,23 +250,26 @@ function myError( statusText )
 
 /////////////////////////////////////////////////////////////////
 
-function eobrowser(ev) // handler
+function Cop_browser(ev) // handler
 {
-//var BASE = 'https://browser.creodias.eu/#';
- var BASE = 'https://apps.sentinel-hub.com/eo-browser/?';
+ const id = ev.target.id;
+ var url='';
  var el = ev.target;
      var lat = document.getElementById('lat').value;
      var lng = document.getElementById('lng').value;
      var zoom= document.getElementById('zoom').value;
      var day = el.getAttribute('day');
-     console.log('EOB', day, lat, lng, zoom );
+     console.log( id, day, lat, lng, zoom );
      if( !day ) return;
      
-     var url = BASE
+     if( id != 'CopB' )  return;
+     url = 'https://browser.dataspace.copernicus.eu/?'
              + 'lat=' + lat + '&lng=' + lng + '&zoom=' + zoom
-             + '&time=' + day + '&preset=1_TRUE_COLOR&datasource=Sentinel-2%20L2A';
-     console.log('EOB url: ' + url );
-     window.open( url, '_EOB' ).focus();
+             + '&datasetId=S2_L2A_CDAS&fromTime=' 
+             + day + 'T00%3A00%3A00.000Z&toTime=' 
+             + day + 'T23%3A59%3A59.999Z&layerId=1_TRUE_COLOR';
+     console.log( id + ' url: ' + url );
+     window.open( url, '_' + id ).focus();
 }
 
 function GMaps(ev) // handler
