@@ -91,7 +91,7 @@ span.failed { color:red; font-style:italic; }
 
 div.img { cursor: crosshair; }
 
-#EOB, #GMaps
+#CopB, #GMaps
 {
   color: blue;
   text-decoration: underline;
