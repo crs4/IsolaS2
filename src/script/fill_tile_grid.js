@@ -55,11 +55,11 @@ function get_fetch_url( is_proxy, polygon, day1, day2 )
 {
  // const DIRECT_SITE = 'https://datahub.creodias.eu';
  const DIRECT_SITE = 'https://catalogue.dataspace.copernicus.eu';
- const ODATA_PROXY = 'https://odata.sentineltwosardinia.workers.dev';
+ const ODATA_PROXY = 'https://catalogue-dataspace-copernicus-eu.sentineltwosardinia.workers.dev';
  const ODATA_PATH = '/odata/v1/';
 
   let url = DIRECT_SITE;
-  if( is_proxy ) url  = ODATA_PROXY;
+  if( is_proxy ) url  = ODATA_PROXY + '/';
   else           url += ODATA_PATH;
 
     url +=  'Products?$filter=Collection/Name%20eq%20%27SENTINEL-2%27%20and%20ContentDate/Start%20gt%20'
@@ -165,8 +165,8 @@ function fill_tile_grid( )
  
   var url_direct = get_fetch_url( false, polygon, day1, day2 );
   var url_proxy  = get_fetch_url( true,  polygon, day1, day2 );
-//do_fetch( url_direct, url_proxy );  // Hope direct comes back one day
-  do_fetch( url_direct, false );  // Hope direct comes back one day
+  do_fetch( url_direct, url_proxy );  // Hope direct comes back one day
+//do_fetch( url_direct, false );  // Hope direct comes back one day
 }
   
 function do_fetch( url, url_bak )
