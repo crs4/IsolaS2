@@ -357,6 +357,9 @@ function find_duplicate( itemArr ) // S2B_MSIL2A_20181031T101139_N0211_R022_T
      var len_i  = obj_i.tiles.length;    // number of tiles
      var proc_i = obj_i.id.substr(27,5); // N0211
      var orbit_i= obj_i.id.substr(33,4); // R022
+     var s2x_i  = obj_i.id.substr(0,3); // S2A
+     var short_stem_i = stem_i.substr(7,12); // L2A_20181031
+
      var len_max = document.querySelectorAll( '#tiles > div[orbits*="' + orbit_i + '"]' ).length;
 
       for( var j=i+1; j<itemArr.length; j++ )
@@ -367,6 +370,8 @@ function find_duplicate( itemArr ) // S2B_MSIL2A_20181031T101139_N0211_R022_T
          var tiles_j = obj_j.tiles; tiles_j.sort(); tiles_j = tiles_j.join(' ');
          var len_j  = obj_j.tiles.length;    // number of tiles
          var proc_j = obj_j.id.substr(27,5); // N0209
+         var s2x_j  = obj_j.id.substr(0,3); // S2A
+         var short_stem_j = stem_j.substr(7,12); // L2A_20181031
 
         // upgrade duplicate  - keep newest
          if((stem_i == stem_j) && (proc_i != proc_j )  && (tiles_i == tiles_j)) 
@@ -381,6 +386,12 @@ function find_duplicate( itemArr ) // S2B_MSIL2A_20181031T101139_N0211_R022_T
              console.log('find_OLD duplicate: ', i, stem_i, proc_i, tiles_i,  j, stem_j, proc_j, tiles_j );
               if( proc_i < proc_j ) return (i); // Assign oldest to be deleted
               else                  return (j);
+         }
+         if( (short_stem_i == short_stem_j) && (s2x_i != s2x_j ) ) // March 2025 same day S2A, S2B, S2C
+         { 
+             console.log('find_same day s2x duplicate: ', i, stem_i,  j, stem_j );
+              if( s2x_i < s2x_j ) return (i); // Assign oldest satellite to be deleted
+              else                return (j);
          }
          if( (stem_i + utc_i) == (stem_j + utc_j) ) // found
          {
